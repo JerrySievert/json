@@ -58,7 +58,12 @@ function render (key, value, indent) {
       text += "\"" + key + "\": ";
     }
 
-    text += Number(value);
+    if (typeof value === 'number') {
+      text += Number(value);
+    } else {
+      text += value ? 'true' : 'false';
+    }
+
     text += "";
   } else {
     for (i = 0; i < indent; i++) {
