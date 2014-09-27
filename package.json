@@ -1,0 +1,23 @@
+{
+  "name": "json-nice",
+  "version": "1.0.0",
+  "description": "JSON Formatter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JerrySievert/json.git"
+  },
+  "keywords": [
+    "JSON",
+    "Format"
+  ],
+  "author": "Jerry Sievert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JerrySievert/json/issues"
+  },
+  "homepage": "https://github.com/JerrySievert/json"
+}
