@@ -1,11 +1,11 @@
-function render (key, value, indent) {
+function render (key, value, options, indent) {
   var text = '', i;
 
   indent = indent || 0;
 
   if (Array.isArray(value)) {
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
 
     if (key !== null) {
@@ -15,7 +15,7 @@ function render (key, value, indent) {
     text += "[\n";
 
     for (var i = 0; i < value.length; i++) {
-      text += render(null, value[i], indent + 2);
+      text += render(null, value[i], options, indent + 1);
       if (i < value.length - 1) {
         text += ",";
       }
@@ -23,12 +23,12 @@ function render (key, value, indent) {
     }
 
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
     text += "]";
   } else if (value !== null && typeof value === 'object' && value.toString() === '[object Object]') {
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
 
     if (key !== null) {
@@ -39,7 +39,7 @@ function render (key, value, indent) {
 
     var keys = Object.keys(value);
     for (var i = 0; i < keys.length; i++) {
-      text += render(keys[i], value[keys[i]], indent + 2);
+      text += render(keys[i], value[keys[i]], options, indent + 1);
       if (i < keys.length - 1) {
         text += ",";
       }
@@ -47,12 +47,12 @@ function render (key, value, indent) {
     }
 
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
     text += "}";
   } else if (typeof value === 'number' || typeof value === 'boolean') {
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
     if (key !== null) {
       text += "\"" + key + "\": ";
@@ -67,7 +67,7 @@ function render (key, value, indent) {
     text += "";
   } else {
     for (i = 0; i < indent; i++) {
-      text += " ";
+      text += options.indent;
     }
     if (key !== null) {
       key = key.replace(/\"/g, "\\\"");
@@ -89,9 +89,15 @@ function render (key, value, indent) {
   return text;
 }
 
-function format (obj) {
+function format (obj, opt) {
+  var options = { indent: "  " };
   if (typeof obj === 'object') {
-    return render(null, obj);
+    if (typeof opt === 'object') {
+      for (var i in opt) {
+        options[i] = opt[i];
+      }
+    }
+    return render(null, obj, options);
   }
 }
 
